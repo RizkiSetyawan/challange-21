@@ -1,0 +1,94 @@
+<% include ./partials/header %>
+<div class="container">
+   <h1>BREAD(Browse, Read, Edit, Add, Delete)</h1>
+   <h2>FILTER</h2>
+
+   <form action="/">
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="id3" id="defaultCheck1">
+         <label for="id" class="col-sm-2 col-form-label">ID</label>
+         <div class="col-sm-10">
+            <input type="text" class="form-control" id="id" name="id" placeholder="id" value="">
+         </div>
+      </div>
+
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="string3" id="defaultCheck1">
+         <label for="string" class="col-sm-2 col-form-label">STRING</label>
+         <div class="col-sm-10">
+            <input type="text" class="form-control" id="string" name="string" placeholder="string" value="">
+         </div>
+      </div>
+
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="integer3" id="defaultCheck1">
+         <label for="integer" class="col-sm-2 col-form-label">Integer</label>
+         <div class="col-sm-10">
+            <input type="text" class="form-control" id="integer" placeholder='integer' name="integer" value="">
+         </div>
+      </div>
+
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="float3" id="defaultCheck1">
+         <label for="float" class="col-sm-2 col-form-label">Float</label>
+         <div class="col-sm-10">
+            <input type="text" class="form-control" float="id" placeholder="Float" name="float" value="">
+         </div>
+      </div>
+
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="date3" id="defaultCheck1">
+         <label for="date" class="col-sm-2 col-form-label">Date</label>
+         <div class="col-sm-3">
+            <input type="date" class="form-control" name="date" id="date" placeholder="MM/DD/YYY" value="">
+            to
+            <input type="date" class="form-control" name="date1" id="date" placeholder="MM/DD/YYY" value="">
+         </div>
+      </div>
+
+      <div class="form-group row">
+         <input class="form-check-input col-sm-1" type="checkbox" name="boolean3" id="defaultCheck1">
+         <label for="boolean" class="col-sm-2 col-form-label">Boolean</label>
+         <div class="col-sm-10">
+
+         </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="/" class="btn btn-danger"> Reset </a>
+   </form>
+   <br><br>
+
+
+   <table class="table table-striped" id="myTable">
+      <thead style="border-bottom: none;">
+         <tr></tr>
+         <th scope="col">ID</th>
+         <th scope="col">String</th>
+         <th scope="col">Integer</th>
+         <th scope="col">Float</th>
+         <th scope="col">Date</th>
+         <th scope="col">Boolean</th>
+         <th scope="col">Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+         <%data.forEach((item)=>{%>
+         <tr>
+            <th scope="row"><%= item.id2%></th>
+            <td><%= item.string2%></td>
+            <td><%= item.integer2%></td>
+            <td><%= item.float2%></td>
+            <td><%= item.date2%></td>
+            <td><%= item.boolean2%></td>
+            <td><a href="/edit/<%= item.id%>" class="btn btn-success">Edit </a></button>
+               <a href="/delete/<%= item.id%>" class="btn btn-danger"
+                  onclick="return confirm('Delete ID ( <%= item.id%> ) bro ?');">Delete</button></td>
+         </tr>
+         <%})%>
+      </tbody>
+   </table>
+   <a href="add" class=" btn btn-lg btn-primary ">Add</a>
+   </br></br></br>
+</div>
+<% include ./partials/footer %>
