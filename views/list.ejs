@@ -7,32 +7,35 @@
       <div class="form-group row">
          <input class="form-check-input col-sm-1" type="checkbox" name="id3" id="defaultCheck1">
          <label for="id" class="col-sm-2 col-form-label">ID</label>
-         <div class="col-sm-10">
-            <input type="text" class="form-control" id="id" name="id" placeholder="id" value="">
+         <div class="col-sm-5">
+            <input type="text" class="form-control" id="id" name="id" placeholder="id" value="<%=query.id%>">
          </div>
       </div>
 
       <div class="form-group row">
          <input class="form-check-input col-sm-1" type="checkbox" name="string3" id="defaultCheck1">
          <label for="string" class="col-sm-2 col-form-label">STRING</label>
-         <div class="col-sm-10">
-            <input type="text" class="form-control" id="string" name="string" placeholder="string" value="">
+         <div class="col-sm-5">
+            <input type="text" class="form-control" id="string" name="string" placeholder="string"
+               value="<%=query.strring%>">
          </div>
       </div>
 
       <div class="form-group row">
          <input class="form-check-input col-sm-1" type="checkbox" name="integer3" id="defaultCheck1">
          <label for="integer" class="col-sm-2 col-form-label">Integer</label>
-         <div class="col-sm-10">
-            <input type="text" class="form-control" id="integer" placeholder='integer' name="integer" value="">
+         <div class="col-sm-5">
+            <input type="text" class="form-control" id="integer" placeholder='integer' name="integer"
+               value="<%=query.integer%>">
          </div>
       </div>
 
       <div class="form-group row">
          <input class="form-check-input col-sm-1" type="checkbox" name="float3" id="defaultCheck1">
          <label for="float" class="col-sm-2 col-form-label">Float</label>
-         <div class="col-sm-10">
-            <input type="text" class="form-control" float="id" placeholder="Float" name="float" value="">
+         <div class="col-sm-5">
+            <input type="text" class="form-control" id="float" placeholder="Float" name="float"
+               value="<%=query.float%>">
          </div>
       </div>
 
@@ -40,17 +43,33 @@
          <input class="form-check-input col-sm-1" type="checkbox" name="date3" id="defaultCheck1">
          <label for="date" class="col-sm-2 col-form-label">Date</label>
          <div class="col-sm-3">
-            <input type="date" class="form-control" name="date" id="date" placeholder="MM/DD/YYY" value="">
+            <input class="form-control" name="date" id="date" placeholder="Start Date" onfocus="(this.type='date')"
+               value="<%=query.date%>">
             to
-            <input type="date" class="form-control" name="date1" id="date" placeholder="MM/DD/YYY" value="">
+            <input class="form-control" name="date1" id="date" placeholder="End Date" onfocus="(this.type='date')"
+               value="<%=query.date1%>">
          </div>
       </div>
 
       <div class="form-group row">
          <input class="form-check-input col-sm-1" type="checkbox" name="boolean3" id="defaultCheck1">
          <label for="boolean" class="col-sm-2 col-form-label">Boolean</label>
-         <div class="col-sm-10">
-
+         <div class="col-sm-5">
+            <select name="boolean" class="form-control">
+               <% if(query.boolean == "false"){%>
+               <option>Choose the boolean ...</option>
+               <option selected>false</option>
+               <option>true</option>
+               <%} else if((query.boolean == "true")) {%>
+               <option>Choose the boolean ...</option>
+               <option selected>true</option>
+               <option>false</option>
+               <%} else{%>
+               <option>Choose the boolean ...</option>
+               <option>true</option>
+               <option>false</option>
+               <%}%>
+            </select>
          </div>
       </div>
 
@@ -74,21 +93,36 @@
       </thead>
       <tbody>
          <%data.forEach((item)=>{%>
-         <tr>
-            <th scope="row"><%= item.id2%></th>
-            <td><%= item.string2%></td>
-            <td><%= item.integer2%></td>
-            <td><%= item.float2%></td>
-            <td><%= item.date2%></td>
-            <td><%= item.boolean2%></td>
-            <td><a href="/edit/<%= item.id%>" class="btn btn-success">Edit </a></button>
-               <a href="/delete/<%= item.id%>" class="btn btn-danger"
-                  onclick="return confirm('Delete ID ( <%= item.id%> ) bro ?');">Delete</button></td>
-         </tr>
-         <%})%>
-      </tbody>
-   </table>
-   <a href="add" class=" btn btn-lg btn-primary ">Add</a>
-   </br></br></br>
-</div>
-<% include ./partials/footer %>
+               <tr>
+                  <th scope="row"><%= item.id2%></th>
+                  <td><%= item.string2%></td>
+                  <td><%= item.integer2%></td>
+                  <td><%= item.float2%></td>
+                  <td><%= moment(item.date2).format('YYYY-MM-DD')%></td>
+                  <td><%= item.boolean2%></td>
+                  <td><a href="/edit/<%= item.id2%>" class="btn btn-success">Edit </a></button>
+                     <a href="/delete/<%= item.id2%>" class="btn btn-danger"
+                        onclick="return confirm('Delete ID ( <%= item.id2%> ) bro ?');">Delete</button></td>
+               </tr>
+               <%})%>
+               </tbody>
+               </table>
+
+               <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                     <li class="page-item<%= pagination.page == 1 ?' disabled' : ''%>"><a class="page-link"
+                           href="#">Previous</a>
+                     </li>
+                     <% for (let i = 1; i <= pagination.pages; i++) {%>
+                     <li class="page-item<%= i == pagination.page ?' active' : ''%>"><a class="page-link"
+                           href="/?page=<%= i %>"><%= i %></a></li>
+                     <% } %>
+                     <li class="page-item<%= pagination.page == pagination.pages ?' disabled' : ''%>"><a
+                           class="page-link" href="#">Next</a></li>
+                  </ul>
+               </nav>
+
+               <a href="add" class=" btn btn-lg btn-primary ">Add</a>
+               </br></br></br>
+         </div>
+         <% include ./partials/footer %>
